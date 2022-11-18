@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function () {return view('welcome');});
+
+Route::controller(HomeController::class)->group(function (){
+    Route::get('/home', 'home');
+    Route::get('/alumnos', 'alumnos');
+    Route::get('/clases', 'clases');
+    Route::post('/agregarAlumno', 'agregarAlumno');
+
+    Route::get('/eliminar/{id}', 'eliminar');
+    Route::post('/eliminar', 'eliminar2');
+
+    Route::get('/editar/{id}', 'muestraedicion');
+    Route::get('/almacenar', 'update');
+
 });
 
 Route::get('/dashboard', function () {
