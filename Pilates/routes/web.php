@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ClasesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,18 @@ Route::controller(HomeController::class)->group(function (){
     Route::post('/eliminar', 'eliminar2');
 
     Route::get('/editar/{id}', 'muestraedicion');
-    Route::get('/almacenar', 'update');
+    Route::post('/almacenar', 'update');
+
+});
+
+Route::controller(ClasesController::class)->group(function (){
+    Route::get('/home', 'home');
+    Route::get('/alumnos', 'alumnos');
+    Route::get('/clases', 'clases');
+    Route::post('/agregarClase', 'agregarClase');
+
+    Route::get('/eliminar/{id}', 'eliminar');
+    Route::post('/eliminar', 'eliminar2');
 
 });
 

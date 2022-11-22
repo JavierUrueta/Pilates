@@ -11,8 +11,8 @@ class Clase extends Model
 
     protected $table='clases';
     protected $fillable=[
-        'turno',
-        'h_inicio',
+        //'turno',
+        'h_inicial',
         'h_final',
         'instructor'
     ];

@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('clases', function (Blueprint $table) {
             $table->id();
-            $table->string('turno');
             $table->string('h_inicial');
             $table->string('h_final');
-            $table->foreignId('instructor')->constrained('instructores');
+            $table->string('instructor');
+            //$table->foreignId('instructor')->constrained('instructores');
             $table->timestamps();
         });
     }

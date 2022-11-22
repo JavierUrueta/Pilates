@@ -15,11 +15,6 @@ class alumnosSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('alumnos')->insert([
-            'nombre' => 'Javi',
-            'telefono' => '12345',
-            'cumpleaños' => '2000-01-21',
-            'padecimiento' => 'Esta chiquito',
-        ]);
+        
     }
 }

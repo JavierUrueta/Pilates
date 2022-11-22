@@ -22,8 +22,7 @@ class HomeController extends Controller
     {
         $d=Alumno::all();
         //dd($d);
-        return view('alumnos')
-                ->with('alumnos',$d);
+        return view('alumnos')->with('alumnos',$d);
     }
 
     public function agregarAlumno(Request $request){
@@ -68,14 +67,15 @@ class HomeController extends Controller
     public function update(Request $request){
 
         $d= Alumno::find($request->id);
+
+        $file = $request->file('foto');
+
         $d->nombre = $request->nombre;
         $d->cumpleaños = $request->cumpleaños;
         $d->telefono = $request->telefono;
         $d->padecimiento = $request->padecimiento;
         $d->save();
 
-        //return redirect("/pagina");
-
-
+        return redirect("/alumnos");
     }
 }
