@@ -25,8 +25,7 @@ Route::controller(InstructoresController::class)->group(function (){
     
     Route::post('/agregarInstructor', 'agregarInstructor');
 
-    Route::get('/eliminar/{id}', 'eliminar');
-    Route::post('/eliminarInstructor', 'eliminar2');
+    Route::post('/eliminarInstructor', 'eliminarInstructor');
 
     Route::get('/editar/{id}', 'muestraedicion');
     Route::post('/almacenar', 'update');
@@ -37,11 +36,14 @@ Route::controller(HomeController::class)->group(function (){
 
     Route::post('/agregarAlumno', 'agregarAlumno');
 
-    Route::get('/eliminar/{id}', 'eliminar');
-    Route::post('/eliminarAlumno', 'eliminar2');
+    Route::post('/eliminarAlumno', 'eliminarAlumno');
 
     Route::get('/editar/{id}', 'muestraedicion');
     Route::post('/almacenar1', 'update');
+
+    //EXCEL
+    Route::get('/exportarAlumnos', 'exportarAlumnos')->name('alumnos.export');
+    Route::post('/importarAlumnos', 'importarAlumnos')->name('alumnos.import');
 
 });
 
@@ -49,8 +51,16 @@ Route::controller(ClasesController::class)->group(function (){
 
     Route::post('/agregarClase', 'agregarClase');
 
-    Route::get('/eliminar/{id}', 'eliminar');
-    Route::post('/eliminarClase', 'eliminar2');
+    Route::post('/eliminarClase', 'eliminarClase');
+
+    //INSCRIPCIONES
+
+    Route::post('/inscribirAlumno', 'inscribirAlumno');
+
+    Route::post('/eliminarAlumnoDeClase', 'eliminarAlumnoDeClase');
+
+    //PDF
+    Route::get('/creaPdf', 'creaPdf');
 
 });
 

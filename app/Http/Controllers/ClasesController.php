@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Alumno;
 use App\Models\Clase;
 use App\Models\Instructor;
+use App\Models\Inscripcion;
+use PDF;
 
 class ClasesController extends Controller
 {
@@ -41,17 +43,38 @@ class ClasesController extends Controller
         return redirect("/clases");
     }
 
-    public function eliminar($id){
-        $d = Clase::find($id);
-        $d->delete();
-
-        return redirect("/clases");
-    }
-
-    public function eliminar2(Request $request){
+    public function eliminarClase(Request $request){
         //dd($request->clase);
+        $i=Inscripcion::where('clase',$request->clase)->delete();
         $d = Clase::find($request->clase)->delete();
         return redirect("/clases");
 
+    }
+
+    public function inscribirAlumno(Request $request){
+
+        $d= new Inscripcion();
+
+        $d->clase = $request->horaClase;
+        $d->alumno = $request->alumno;
+        $d->save();
+
+        return redirect("/clases");
+
+    }
+
+    public function eliminarAlumnoDeClase(Request $request){
+        //dd($request->clase);
+        $d = Inscripcion::find($request->inscripcion)->delete();
+        return redirect("/clases");
+
+    }
+
+    public function creaPdf(Request $request){
+
+        $d=Alumno::all();
+
+        $pdf = PDF::loadView('pruebaparapdf', array('alumnos'=> $d));
+        return $pdf->download('pruebapdf.pdf');
     }
 }

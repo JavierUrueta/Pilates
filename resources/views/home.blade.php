@@ -52,10 +52,10 @@
                 </div>
         </nav>
         <br>
-        <div class="container text-center">
-            <div class="row justify-content-around">
-                <div class="col-12 shadow p-3 mb-5 bg-body rounded">
-                    <h3>Instructores</h3>
+        <div class="container-xxl">
+            <div class="row d-flex justify-content-center">
+                <div class="col-11 float-end">
+                    <h3 class="text-center">Instructores</h3>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-success float-start" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                         Agregar Instructora
@@ -73,14 +73,14 @@
                                 <form action="/agregarInstructor" method="POST">
                                         @csrf
                                         <div class="modal-body">
-                                            <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group input-group-lg mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
                                                 <input name="nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                             </div>
-                                            <div class="input-group input-group-sm mb-3">
+                                            <div class="input-group input-group-lg mb-3">
                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Turno</span>
                                                 <select  name="turno" class="form-select" aria-label="Default select example">
-                                                                    <option selected>Turno...</option>
+                                                                    <option selected disabled selected>Turno...</option>
                                                                     <option value="Matutino">Matutino</option>
                                                                     <option value="Vespertino">Vespertino</option>
                                                 </select>
@@ -90,7 +90,7 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                             <button type="submit" value="Enviar" class="btn btn-primary">Guardar Instructor</button>
                                         </div>
-                                    </form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -98,17 +98,17 @@
                     <table class="table table-responsive table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Turno</th>
-                                <th scope="col">Acciones</th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Turno</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($instructores as $instructor)
                                 <tr>
-                                    <td>{{$instructor->nombre}}</td>
-                                    <td>{{$instructor->turno}}</td>
-                                    <td>
+                                    <td class="text-center">{{$instructor->nombre}}</td>
+                                    <td class="text-center">{{$instructor->turno}}</td>
+                                    <td class="text-center">
                                         <!-- Button trigger modal -->
                                         <button type="button" data-id="{{$instructor->id}}" data-nombre="{{$instructor->nombre}}" data-turno="{{$instructor->turno}}" value="Editar" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit{{$instructor->id}}">
                                             Edit
@@ -125,11 +125,11 @@
                                                         @csrf
                                                         <div class="modal-body">
                                                             <input type="hidden" name="id" value="{{$instructor->id}}">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-lg mb-3">
                                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
                                                                 <input id="nombre" name="nombre" type="text" value="{{$instructor->nombre}}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                                                             </div>
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-lg mb-3">
                                                                 <span class="input-group-text" id="inputGroup-sizing-sm">Turno</span>
                                                                 <select  id="turno" name="turno" value="{{$instructor->turno}}" class="form-select" aria-label="Default select example">
                                                                     <option selected>{{$instructor->turno}}</option>

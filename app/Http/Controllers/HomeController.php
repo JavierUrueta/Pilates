@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Exports\AlumnosExport;
+use App\Imports\AlumnosImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Models\Alumno;
 use Illuminate\Support\Facades\Storage;
 
@@ -54,14 +59,7 @@ class HomeController extends Controller
         return redirect("/alumnos");
     }
 
-    public function eliminar($id){
-        $d = Alumno::find($id);
-        $d->delete();
-
-        return redirect("/alumnos");
-    }
-
-    public function eliminar2(Request $request){
+    public function eliminarAlumno(Request $request){
 
         $d = Alumno::find($request->alumno)->delete();
         return redirect("/alumnos");
@@ -96,4 +94,17 @@ class HomeController extends Controller
 
         return redirect("/alumnos");
     }
+
+    public function exportarAlumnos() 
+    {
+        return Excel::download(new AlumnosExport, 'alumnos.xlsx');
+    }
+       
+    public function importarAlumnos() 
+    {
+        Excel::import(new AlumnosImport,request()->file('file'));
+               
+        return back();
+    }
+
 }

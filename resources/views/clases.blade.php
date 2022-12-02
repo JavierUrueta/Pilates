@@ -6,6 +6,7 @@
         <title>Bootstrap demo</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white; border-bottom: thick double #a3cd3b;  height: 6em;">
@@ -48,46 +49,53 @@
         </nav>
         <br>
         <div class="container">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Agrega Clase
-            </button>
-            <br>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agrega una clase</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="row">
+                <div class="col-6">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Agrega Clase
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Agrega una clase</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="/agregarClase" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="input-group input-group-lg mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Instructor</span>
+                                            <select  name="instructor" class="form-select" aria-label="Default select example">
+                                                                <option disabled selected>Instructores...</option>
+                                                                @foreach($instructores as $instructor)
+                                                                    <option value="{{$instructor->id}}">{{$instructor->nombre}}</option>
+                                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="input-group input-group-lg mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Hora de inicio</span>
+                                            <input name="h_inicial" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        </div>
+                                        <div class="input-group input-group-lg mb-3">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Hora de Termino</span>
+                                            <input name="h_final" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" value="Enviar" class="btn btn-primary">Guardar Clase</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <form action="/agregarClase" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Instructor</span>
-                                    <select  name="instructor" class="form-select" aria-label="Default select example">
-                                                        <option selected>Instructores...</option>
-                                                        @foreach($instructores as $instructor)
-                                                            <option value="{{$instructor->id}}">{{$instructor->nombre}}</option>
-                                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Hora de inicio</span>
-                                    <input name="h_inicial" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                                <div class="input-group input-group-sm mb-3">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">Hora de Termino</span>
-                                    <input name="h_final" type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" value="Enviar" class="btn btn-primary">Guardar Clase</button>
-                            </div>
-                        </form>
                     </div>
+                    
+                </div>
+                <div class="col-6">    
+
                 </div>
             </div>
             <br>
@@ -121,25 +129,38 @@
                                                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Alumna</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    (Aqui va un buscador :p)
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-primary">Agregar</button>
-                                                </div>
+                                                <form action="/inscribirAlumno" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="horaClase" value="{{$clase->id}}">
+                                                    <div class="modal-body">
+                                                        <!--<form class="d-flex" role="search">
+                                                            <input class="form-control me-2" type="search" placeholder="Nombre de Alumna..." aria-label="Search">
+                                                            <button class="btn btn-outline-success" type="submit">Buscar</button>
+                                                        </form>-->
+                                                        <select name="alumno" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                                                <option disabled selected>Elige una alumna</option>
+                                                                @foreach($alumnos as $alumno)
+                                                                    <option value="{{$alumno->id}}">{{$alumno->nombre}}</option>
+                                                                @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Agregar</button>
+                                                    </div>
+                                                </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$clase->id}}">
                                             Eliminar clase
                                         </button>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal fade" id="staticBackdrop{{$clase->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
@@ -165,9 +186,38 @@
                                 </div>
                                 
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Alumna 1</li>
-                                    <li class="list-group-item">Alumna 2</li>
-                                    <li class="list-group-item">Alumna 3</li>
+                                    @foreach($inscripciones as $inscrito)
+                                        @if($inscrito->clase == $clase->id)
+                                            <li class="list-group-item">
+                                                {{$inscrito->nombre}}
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn-close float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar clase</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            ¿Estas seguro que deseas quitar a {{$inscrito->alumno}} esta clase?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                            <form action="/eliminarAlumnoDeClase" method="POST"><!--ELIMINAR-->
+                                                                @csrf 
+                                                                <input type="hidden" name="inscripcion" value="{{$inscrito->id}}">
+                                                                <button type="submit" class="btn btn-danger" value="Eliminar">Eliminar</button>
+                                                            </form>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

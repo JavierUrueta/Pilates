@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Instructor;
 use App\Models\Alumno;
 use App\Models\Clase;
+use App\Models\Inscripcion;
 
 class InstructoresController extends Controller
 {
@@ -19,11 +20,14 @@ class InstructoresController extends Controller
     public function clases()
     {
         $d=Clase::join('instructores','instructores.id', '=', 'clases.instructor')->get(['instructores.nombre', 'clases.id','clases.h_inicial','clases.h_final']);
-        //dd($d);
-        $i=Instructor::all();
 
         //dd($d);
-        return view('clases')->with('clases',$d)->with('instructores',$i);
+        $i=Instructor::all();
+        $a=Alumno::all();
+        $ins=Inscripcion::join('alumnos','alumnos.id', '=', 'clasesxalumno.alumno')->get(['alumnos.nombre', 'alumnos.id','clasesxalumno.id','clasesxalumno.clase']);
+
+        //dd($d);
+        return view('clases')->with('clases',$d)->with('instructores',$i)->with('alumnos',$a)->with('inscripciones',$ins);
     }
 
     public function alumnos()
@@ -44,14 +48,7 @@ class InstructoresController extends Controller
         return redirect("/home");
     }
 
-    public function eliminar($id){
-        $d = Instructor::find($id);
-        $d->delete();
-
-        return redirect("/home");
-    }
-
-    public function eliminar2(Request $request){
+    public function eliminarInstructor(Request $request){
 
         $d = Instructor::find($request->instructor)->delete();
         return redirect("/home");
